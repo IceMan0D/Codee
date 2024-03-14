@@ -10,14 +10,14 @@
     $course = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $course_name = $_POST['course_name'];
-        $course_price = $_POST['course_price'];
-        $course_detail = $_POST['course_detail'];
-        $course_example = $_POST['course_example'];
-        $course_type = $_POST['course_type'];
-        $requirements = $_POST['requirements'];
-        $description = $_POST['description'];
-        $suitable_for = $_POST['suitable'];
+        $course_name = htmlspecialchars($_POST['course_name']);
+        $course_price = htmlspecialchars($_POST['course_price']);
+        $course_detail = htmlspecialchars($_POST['course_detail']);
+        $course_example = htmlspecialchars($_POST['course_example']);
+        $course_type = htmlspecialchars($_POST['course_type']);
+        $requirements = htmlspecialchars($_POST['requirements']);
+        $description = htmlspecialchars($_POST['description']);
+        $suitable_for = htmlspecialchars($_POST['suitable']);
 
         $sql_update = 'UPDATE course 
                         SET course_name = :course_name, course_price = :course_price, course_detail = :course_detail,
