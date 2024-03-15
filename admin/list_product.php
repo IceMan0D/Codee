@@ -37,6 +37,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">ภาพ</th>
                     <th scope="col">ชื่อบทเรียน</th>
                     <th scope="col">ราคา</th>
                     <th scope="col">รายละเอียด</th>
@@ -47,6 +48,7 @@
                 <?php foreach($course as $i => $courses): ?>
                 <tr>
                     <th scope="row"><?php echo $i+1 ?></th>
+                    <td><img src="../img/course_img/<?php echo $courses['pro_img']?>" style='width:200px;'></td>
                     <td><?php echo $courses['course_name']?></td>
                     <td><?php echo $courses['course_price']?></td>
                     <td><?php echo substring($courses['course_detail']) ?></td>

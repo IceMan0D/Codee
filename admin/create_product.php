@@ -1,6 +1,6 @@
 <?php 
     require_once '../conn.php'; 
-    $error = '';
+    $errors = [];
     $course_name = '';
     $course_price = '';
     $course_detail = '';
@@ -20,13 +20,45 @@
         $suitable = htmlspecialchars($_POST['suitable']);
 
         if($course_type == 0){
-            $error = 'โปรดเลือกบทเรียน';
+            $errors[] = 'โปรดเลือกบทเรียน';
         }
 
-        if(empty($error)){
-            $sql_insert = 'INSERT INTO course (course_name,course_price, 
+        if(!$course_name){
+            $errors[] = 'กรุณากรอกชื่อบทเรียน';
+        }
+
+        if(!$course_price){
+            $errors[] = 'กรุณากรอกราคา';
+        }
+
+        if(!empty($_FILES['image']['name'])){     
+            $allow_img = ['png', 'jpg', 'jpeg', 'gif'];
+
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+
+            $target_dir = "../img/course_img/$file_name";
+            $file_ext = explode('.', $file_name);
+            $file_ext = strtolower(end($file_ext));
+
+            if(in_array($file_ext, $allow_img)){
+                if($file_size <= 5000000){
+                    move_uploaded_file($file_tmp, $target_dir);
+                }else{
+                    $errors[] = 'ขนาดไฟล์เกิน 5 MB';
+                }
+            }else{
+                $errors[] = 'อัพโหลดไฟล์ png jpg jpeg gif เท่านั้น';
+            }
+        }else{
+            $errors[] = 'กรุณาอัพโหลดไฟล์ภาพ';
+        }
+
+        if(empty($errors)){
+            $sql_insert = 'INSERT INTO course (course_name, pro_img ,course_price, 
                             course_detail, course_example, type_id ,requirements , description, suitable_for) 
-                            VALUES (:course_name, :course_price, :course_detail,
+                            VALUES (:course_name, :course_img ,:course_price, :course_detail,
                             :course_example, :course_type ,:requirement, :description, :suitable)';
                             
             $stmt = $conn->prepare($sql_insert);
@@ -34,6 +66,7 @@
             $stmt->execute(
                 array(
                     ':course_name' => $course_name,
+                    ':course_img' => $file_name,
                     ':course_price' => $course_price,
                     ':course_detail' => $course_detail,
                     ':course_example' => $course_example,
@@ -61,34 +94,38 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- แสดง error -->
-        <?php if($error):?>
+    <div class="container my-5">
+        <!-- แสดง errors -->
+        <?php if(!empty($errors)):?>
         <div class="alert alert-danger" role="alert">
-            <?php echo $error?>
+            <?php foreach ($errors as $error): ?>
+            <p><?php echo $error?></p>
+            <?php endforeach ;?>
         </div>
         <?php endif ;?>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">อัพโหลดไฟล์ภาพสำหรับปก</label>
+                <input class="form-control" type="file" id="formFile" name="image">
+            </div>
             <div class="mb-3">
                 <label for="" class="form-label">ชื่อบทเรียน</label>
-                <input type="text" class="form-control" id="" value="<?php echo $course_name;?>" name="course_name"
-                    required>
+                <input type="text" class="form-control" id="" value="<?php echo $course_name;?>" name="course_name">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ราคา</label>
-                <input type="text" name="course_price" id="" class="form-control" required
-                    value="<?php echo $course_price;?>">
+                <input type="text" name="course_price" id="" class="form-control" value="<?php echo $course_price;?>">
                 <!-- <input type="number" class="form-control" id="" min=0 name="course_price"></input> -->
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">รายละเอียดของบทเรียน</label>
-                <textarea class="form-control" id="" rows="3" name="course_detail"
-                    required><?php echo $course_detail;?></textarea>
+                <textarea class="form-control" id="" rows="3"
+                    name="course_detail"><?php echo $course_detail;?></textarea>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ลิ้งตัวอย่างวีดีโอ</label>
-                <textarea class="form-control" id="" rows="3" name="course_example"
-                    required><?php echo $course_example;?></textarea>
+                <textarea class="form-control" id="" rows="3"
+                    name="course_example"><?php echo $course_example;?></textarea>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ประเภทของบทเรียน</label>

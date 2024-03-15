@@ -19,15 +19,37 @@
         $description = htmlspecialchars($_POST['description']);
         $suitable_for = htmlspecialchars($_POST['suitable']);
 
+        if(!empty($_FILES['image']['name'])){     
+            $allow_img = ['png', 'jpg', 'jpeg', 'gif'];
+
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+
+            $target_dir = "../img/course_img/$file_name";
+            $file_ext = explode('.', $file_name);
+            $file_ext = strtolower(end($file_ext));
+
+            if(in_array($file_ext, $allow_img)){
+                if($file_size <= 5000000){
+                    move_uploaded_file($file_tmp, $target_dir);
+                }else{
+                    $errors[] = 'ขนาดไฟล์เกิน 5 MB';
+                }
+            }else{
+                $errors[] = 'อัพโหลดไฟล์ png jpg jpeg gif เท่านั้น';
+            }
+
         $sql_update = 'UPDATE course 
-                        SET course_name = :course_name, course_price = :course_price, course_detail = :course_detail,
+                        SET pro_img = :img,course_name = :course_name, course_price = :course_price, course_detail = :course_detail,
                         course_example = :course_example, type_id = :course_type, requirements = :requirements,
                         description = :description, suitable_for = :suitable_for
                         WHERE course_id = :id';
 
         $stmt = $conn->prepare($sql_update);
-        $stmt->bindParam(':course_name', $course_name);
+        $stmt->bindParam(':img', $file_name);
         $stmt->bindParam(':course_price', $course_price);
+        $stmt->bindParam(':course_name', $course_name);
         $stmt->bindParam(':course_detail', $course_detail);
         $stmt->bindParam(':course_example', $course_example);
         $stmt->bindParam(':course_type', $course_type);
@@ -40,6 +62,7 @@
         header('location: list_product.php');
         exit();
     }
+}
     
 ?>
 <!DOCTYPE html>
@@ -55,7 +78,14 @@
 
 <body>
     <div class="container">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <img src="../img/course_img/<?php echo $course['pro_img']?>" alt="" style='width:400px'>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">อัพโหลดไฟล์ภาพสำหรับปก</label>
+                <input class="form-control" type="file" id="formFile" name="image">
+            </div>
             <div class="mb-3">
                 <label for="" class="form-label">ชื่อบทเรียน</label>
                 <input type="text" class="form-control" id="" value="<?php echo $course['course_name'];?>"
