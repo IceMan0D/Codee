@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>ตะกร้าสินค้า</title>
     <style>
         table {
@@ -33,23 +34,29 @@
         </thead>
         <tbody>
             <?php
-            // เชื่อมต่อกับฐานข้อมูล
+            session_start();
             require_once "conn.php";
 
-            // ดึงข้อมูลคอร์สที่เพิ่มเข้าตะกร้าจากฐานข้อมูล
-            $stmt = $conn->query("SELECT * FROM cart INNER JOIN course ON cart.course_id = course.course_id");
-            $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            $totalPrice = 0;
-
-            foreach ($courses as $course): ?>
+            if (isset($_SESSION["strProductID"]) && !empty($_SESSION["strProductID"])) {
+                $in = str_repeat('?,', count($_SESSION["strProductID"]) - 1) . '?';
+                $stmt = $conn->prepare("SELECT course.*, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id WHERE course.course_id IN ($in)");
+                $stmt->execute($_SESSION["strProductID"]);
+                $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                $totalPrice = 0; // Initialize totalPrice
+                
+                foreach ($courses as $course) {
+                    $course_id = $course['course_id'];
+                    $key = array_search($course_id, $_SESSION["strProductID"]);
+                    $quantity = $_SESSION["strQty"][$key];
+                    $subtotal = $course['course_price'] * $quantity;
+                    $totalPrice += $subtotal;
+            ?>
                 <tr>
                     <td><?php echo $course['course_name']; ?></td>
                     <td><?php echo $course['course_price']; ?> บาท</td>
-                    <td><?php 
-                        $subtotal = $course['course_price']; 
-                        $totalPrice += $subtotal;
-                        echo $subtotal; ?> บาท</td>
+                    <td><?php echo $quantity; ?></td>
+                    <td><?php echo $subtotal; ?> บาท</td>
                     <td>
                         <form action="remove_from_cart.php" method="post">
                             <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
@@ -57,7 +64,8 @@
                         </form>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php } // End foreach
+            } ?>
         </tbody>
         <tfoot>
             <tr>
