@@ -1,5 +1,4 @@
 <?php 
-
     session_start();
     require_once 'conn.php';
     if (!isset($_SESSION['user_login'])) {
@@ -10,14 +9,16 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=h, initial-scale=1.0">
     <title>user page</title>
 </head>
+
 <body>
     <div class="container">
-    <?php 
+        <?php 
 
 if (isset($_SESSION['user_login'])) {
     $user_id = $_SESSION['user_login'];
@@ -26,7 +27,7 @@ if (isset($_SESSION['user_login'])) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 ?>
-        <h3 class="mt-4">Welcome  <?php echo $row['user_fullname']; ?></h3>
+        <h3 class="mt-4">Welcome <?php echo $row['user_fullname']; ?></h3>
         <p>email: <?php echo $row['user_email']; ?></p>
         <p>address: <?php echo $row['user_address']; ?></p>
         <p>telephone: <?php echo $row['tel']; ?></p>
@@ -41,4 +42,5 @@ if (isset($_SESSION['user_login'])) {
         <a href="logout.php" class="btn btn-primary">ออกจากระบบ</a>
     </div>
 </body>
+
 </html>

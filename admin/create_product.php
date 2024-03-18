@@ -1,5 +1,7 @@
 <?php 
+    // session_start();
     require_once '../conn.php'; 
+    require_once 'check_permission.php';
     $errors = [];
     $course_name = '';
     $course_price = '';
@@ -56,7 +58,7 @@
         }
 
         if(empty($errors)){
-            $sql_insert = 'INSERT INTO course (course_name, pro_img ,course_price, 
+            $sql_insert = 'INSERT INTO course (course_name, course_img ,course_price, 
                             course_detail, course_example, type_id ,requirements , description, suitable_for) 
                             VALUES (:course_name, :course_img ,:course_price, :course_detail,
                             :course_example, :course_type ,:requirement, :description, :suitable)';
@@ -77,12 +79,19 @@
                 )
             );
 
-            header('location: list_product.php');
-            exit();
+            $message = 'เพิ่มข้อมูลสำเร็จ';
+            // header('location: list_product.php');
+            // exit();
         }
     }
 ?>
-<!DOCTYPE html>
+
+<?php
+    $title = 'ลงคอร์ส';
+    include_once 'views/partials/header.php';
+    include_once 'views/partials/navbar.php';
+?>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -91,7 +100,7 @@
     <title>ลงคอร์ส</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
+</head> -->
 
 <body>
     <div class="container my-5">
@@ -103,6 +112,12 @@
             <?php endforeach ;?>
         </div>
         <?php endif ;?>
+        <?php if(!empty($message)): ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $message?>
+        </div>
+        <?php endif ;?>
+        <!-- <a href="list_product.php" class="btn btn-primary my-2">กลับสู่หน้าหลัก</a> -->
         <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="formFile" class="form-label">อัพโหลดไฟล์ภาพสำหรับปก</label>
@@ -114,8 +129,9 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ราคา</label>
-                <input type="text" name="course_price" id="" class="form-control" value="<?php echo $course_price;?>">
-                <!-- <input type="number" class="form-control" id="" min=0 name="course_price"></input> -->
+                <!-- <input type="text" name="course_price" id="" class="form-control"  -->
+                <input type="number" class="form-control" id="" min=0 name="course_price"
+                    value="<?php echo $course_price;?>"></input>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">รายละเอียดของบทเรียน</label>
@@ -131,11 +147,28 @@
                 <label for="" class="form-label">ประเภทของบทเรียน</label>
                 <select class="form-select" name="course_type">
                     <option value="0">กรุณาเลือกประเภทของบทเรียน</option>
-                    <option value="1">Full Stack Developer</option>
-                    <option value="2">Front-End Developer</option>
-                    <option value="3">Back End Developer</option>
-                    <option value="4">UX/UI Design</option>
-                    <option value="5">Free Course</option>
+                    <option value="1"
+                        <?php if(isset($_POST['course_type']) && $_POST['course_type'] == 1 ){echo 'selected';}?>>Full
+                        Stack
+                        Developer
+                    </option>
+                    <option value="2"
+                        <?php if(isset($_POST['course_type']) && $_POST['course_type']== 2){echo 'selected';}?>>
+                        Front-End
+                        Developer
+                    </option>
+                    <option value="3"
+                        <?php if(isset($_POST['course_type']) && $_POST['course_type']== 3){echo 'selected';}?>>Back End
+                        Developer
+                    </option>
+                    <option value="4"
+                        <?php if(isset($_POST['course_type'])&& $_POST['course_type']== 4){echo 'selected';}?>>UX/UI
+                        Design
+                    </option>
+                    <option value="5"
+                        <?php if(isset($_POST['course_type']) && $_POST['course_type']== 5){echo 'selected';}?>>Free
+                        Course
+                    </option>
                 </select>
             </div>
             <div class="mb-3">

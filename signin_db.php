@@ -30,7 +30,7 @@
                             echo 'est';
                             if($row['status_id'] == 1){
                                 $_SESSION['admin_login'] = $row['user_id'];
-                                header("location: admin.php");
+                                header("location: admin/main_admin.php");
                             }elseif($row['status_id'] == 2){
                                 $_SESSION['sale_login'] = $row['user_id'];
                                 header("location: sale.php");
@@ -46,7 +46,7 @@
                             }
                         }
                     }else{
-                                 $_SESSION['error'] = 'ชื่อไม่ถูกต้อง';
+                                $_SESSION['error'] = 'ชื่อไม่ถูกต้อง';
                                 header("location: Login_User.php");
                     }
                 
