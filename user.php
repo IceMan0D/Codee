@@ -13,6 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=h, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>user page</title>
 </head>
 
@@ -39,7 +40,7 @@ if (isset($_SESSION['user_login'])) {
         <a href="edituser.php" class="btn btn-primary">แก้ไขข้อมูลส่วนตัว</a>
         <br>
         <br>
-        <a href="logout.php" class="btn btn-primary">ออกจากระบบ</a>
+        <a href="Logout.php" class="btn btn-primary" name="logout"  >ออกจากระบบ</a>
     </div>
 </body>
 

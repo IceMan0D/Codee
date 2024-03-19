@@ -47,7 +47,7 @@
                     header('location: Register_User.php');
                 }elseif(!isset($_SESSION['error'])){
                     $passwordHash = password_hash($user_password, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("INSERT INTO user(user_username,user_fullname,user_email,user_address,tel,user_password,status_id) VALUES(:user_username,:user_fullname,:user_email,:user_address,:tel,:user_password,:status_id)");
+                    $stmt = $conn->prepare("INSERT INTO user(user_username,user_fullname,user_email,user_address,tel,user_password,status_id,occupation,detail) VALUES(:user_username,:user_fullname,:user_email,:user_address,:tel,:user_password,:status_id,:occupation,:detail)");
                     $stmt->bindParam(":user_username",$user_username);
                     $stmt->bindParam(":user_fullname",$user_fullname);
                     $stmt->bindParam(":user_email",$user_email);
@@ -55,6 +55,8 @@
                     $stmt->bindParam(":tel",$tel);
                     $stmt->bindParam(":user_password",$passwordHash);
                     $stmt->bindParam(":status_id",$status_id);
+                    $stmt->bindParam(":occupation",$occupation);
+                    $stmt->bindParam(":detail",$detail);
                     $stmt->execute();
                     $_SESSION['succsus']="สมัครสมาชิกเรียบร้อยแล้ว! <a href='Login_User.php' class='alert-link'>คลิ๊กที่นี่เพื่อเข้าสู่ระบบ</a></a>";
                     header("location: Register_User.php");

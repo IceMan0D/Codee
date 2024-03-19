@@ -3,30 +3,36 @@ ob_start();
 session_start();
 require_once "conn.php";
 
+// ตรวจสอบว่ามีการส่ง course_id มาหรือไม่
 if (!isset($_SESSION["intLine"])) {
-    $_SESSION["intLine"] = 0;
-    $_SESSION["strProductID"] = array(); // Initialize as an empty array
-    $_SESSION["strQty"] = array();       // Initialize as an empty array
+  // เริ่มต้นค่าเริ่มต้น
+  $_SESSION["intLine"] = 0;
+  $_SESSION["strProductID"] = array(); // เก็บรหัสสินค้า
+  $_SESSION["strQty"] = array(); // เก็บจำนวนสินค้า
 }
 
-// Check if course_id is set and not empty
+// ตรวจสอบว่ามีการส่ง course_id มาหรือไม่
 if (isset($_POST["course_id"]) && !empty($_POST["course_id"])) {
-    $course_id = $_POST["course_id"];
+  $course_id = $_POST["course_id"];
 
-    // Check if the product is already in the cart
-    $key = array_search($course_id, $_SESSION["strProductID"]);
-    if ($key !== false) {
-        $_SESSION["strQty"][$key]++;
-    } else {
-        $_SESSION["intLine"]++;
-        $intnewLine = $_SESSION["intLine"];
-        $_SESSION["strProductID"][$intnewLine] = $course_id;
-        $_SESSION["strQty"][$intnewLine] = 1;
-    }
+  // ค้นหาว่าสินค้าอยู่ในตะกร้าแล้วหรือไม่
+  $key = array_search($course_id, $_SESSION["strProductID"]);
+
+  // สินค้าอยู่ในตะกร้า แสดงข้อความแจ้งเตือน
+  if ($key !== false) {
+    echo "<script>alert('สินค้าอยู่ในตะกร้าแล้ว');</script>";
+  } else {
+    // สินค้าไม่อยู่ในตะกร้า เพิ่มสินค้าใหม่
+    $_SESSION["intLine"]++;
+    $intnewLine = $_SESSION["intLine"];
+    $_SESSION["strProductID"][$intnewLine] = $course_id;
+    $_SESSION["strQty"][$intnewLine] = 1;
+  }
 } else {
-    echo "Error: Course ID is missing.";
+  // แสดงข้อผิดพลาด
+  echo "Error: Course ID is missing.";
 }
 
-// Redirect to cart page (assuming cart.php)
+// Redirect ไปยังหน้าตะกร้า (cart_2.php)
 header("location: cart_2.php");
 ?>

@@ -2,13 +2,6 @@
     session_start();
     require_once 'conn.php';
 
-    // ตรวจสอบว่ามีการเข้าสู่ระบบหรือไม่
-    if (!isset($_SESSION['user_login'])) {
-        $_SESSION['error'] = 'กรุณาเข้าสู่ระบบ!';
-        header('location: Login_User.php');
-        exit; // ออกจากการทำงานทันทีหลังจาก redirect
-    }
-
     // เมื่อผู้ใช้เข้าสู่ระบบแล้ว
     if (isset($_POST['update'])) {
         $user_id = $_SESSION['user_login'];
@@ -62,11 +55,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Edit User Information</title>
 </head>
 <body>
+    <div class="container">
     <h2>Edit User Information</h2>
-    <form method="post" action="">
+    <form method="post" action="user.php">
         <label for="user_fullname">Full Name:</label><br>
         <input type="text" id="user_fullname" name="user_fullname" value="<?php echo $row['user_fullname']; ?>" required><br>
         <label for="user_email">Email:</label><br>
@@ -79,7 +74,8 @@
         <input type="text" id="occupation" name="occupation" value="<?php echo $row['occupation']; ?>"><br>
         <label for="detail">Detail:</label><br>
         <textarea id="detail" name="detail"><?php echo $row['detail']; ?></textarea><br><br>
-        <input type="submit" name="update" value="Update">
+        <input type="submit" name="update" value="Update" class="btn btn-primary"> 
     </form>
+    </div>
 </body>
 </html>
