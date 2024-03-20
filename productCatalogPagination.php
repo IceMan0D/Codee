@@ -15,7 +15,6 @@ $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 $stmt->bindParam(':results_per_page', $results_per_page, PDO::PARAM_INT);
 $stmt->execute();
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 // Get total number of pages for pagination
 $total_pages = ceil($conn->query("SELECT COUNT(*) FROM course")->fetchColumn() / $results_per_page);
 ?>
@@ -57,7 +56,7 @@ $total_pages = ceil($conn->query("SELECT COUNT(*) FROM course")->fetchColumn() /
       <td>
         <form action="order.php" method="post">
           <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>">
-          <button type="submit">Add to Cart</button>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
       </td>
     </tr>

@@ -38,7 +38,7 @@
         $stmt->execute();
 
         // ส่งกลับไปยังหน้าเดิมหลังจากอัปเดตข้อมูลเรียบร้อย
-        header("location: edituser.php");
+        header("location: user.php");
         exit; // ออกจากการทำงานทันทีหลังจาก redirect
     }
 
@@ -61,7 +61,7 @@
 <body>
     <div class="container">
     <h2>Edit User Information</h2>
-    <form method="post" action="user.php">
+    <form method="post" action="">
         <label for="user_fullname">Full Name:</label><br>
         <input type="text" id="user_fullname" name="user_fullname" value="<?php echo $row['user_fullname']; ?>" required><br>
         <label for="user_email">Email:</label><br>

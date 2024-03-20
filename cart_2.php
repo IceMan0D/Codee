@@ -37,8 +37,8 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
                     $Total = 0;
                     $sumprice = 0;
                     $m = 1;
-                    for ($i = 0; $i <= (int)$_SESSION["intLine"]; $i++) {
-                        if ($_SESSION["strProductID"][$i] != "") {
+                    for ($i = 0; $i <= (isset($_SESSION["intLine"]) ? (int)$_SESSION["intLine"] : 0); $i++) {
+                        if (isset($_SESSION["strProductID"][$i]) && $_SESSION["strProductID"][$i] != "") {
                             $sql1 = "SELECT * FROM course WHERE course_id = :product_id";
                             $result1 = $conn->prepare($sql1);
                             $result1->bindParam(':product_id', $_SESSION["strProductID"][$i]);
