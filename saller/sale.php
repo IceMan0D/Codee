@@ -1,13 +1,10 @@
 <?php
 
 
-require_once('./conn.php');
-if (!isset($_SESSION['user_login'])) {
-  $_SESSION['error'] = 'กรุณาเข้าสู่ระบบ!';
-  header('location: Login_User.php');
-}
+require_once('../conn.php');
+
 $course_name=['course_name'];
-require_once('product_show.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,10 +27,10 @@ require_once('product_show.php');
           <a class="nav-link active" aria-current="page" href="sale.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./admin/create_product.php">uplaod_couere</a>
+          <a class="nav-link" href="../admin/create_product.php">uplaod_couere</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="salecourse.php">My Sale Course</a>
+          <a class="nav-link" href="../admin/list_product.php">My Sale Course</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
