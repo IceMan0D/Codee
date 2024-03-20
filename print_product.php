@@ -61,7 +61,7 @@
                             $result->execute();
                             $row = $result->fetch(PDO::FETCH_ASSOC);
 
-                            $price = $row['course_price'];
+                            $price =$row['course_price'];
                             $qty = $_SESSION["strQty"][$i];
                             $subtotal = $qty * $price;
 

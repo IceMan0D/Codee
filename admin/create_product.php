@@ -59,7 +59,15 @@
 
         // หากไม่มี error แล้วถึงจะ insert
         if(empty($errors)){
-            $sql_insert = 'INSERT INTO course (course_name, course_img ,course_price, 
+            $stmt_user = $conn->prepare("SELECT user_id FROM user WHERE email = :email");
+            $stmt_user->bindParam(':email', $email);
+            $stmt_user->execute();
+            $row_user = $stmt_user->fetch(PDO::FETCH_ASSOC);
+            $user_id = $row_user['user_id'];
+
+
+
+            $sql_insert = 'INSERT INTO course (user_id,course_name, course_img ,course_price, 
                             course_detail, course_example, type_id ,requirements , description, suitable_for) 
                             VALUES (:course_name, :course_img ,:course_price, :course_detail,
                             :course_example, :course_type ,:requirement, :description, :suitable)';
