@@ -2,7 +2,7 @@
 
 
 require_once('./conn.php');
-if (!isset($_SESSION['user_login'])) {
+if (!isset($_SESSION['./user_login'])) {
   $_SESSION['error'] = 'กรุณาเข้าสู่ระบบ!';
   header('location: Login_User.php');
 }
