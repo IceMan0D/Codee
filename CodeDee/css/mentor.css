@@ -1,0 +1,38 @@
+/* top */
+.top{
+    background-color: #dbd9f7;
+    min-height: 350px;
+
+    .container{
+        min-height: 350px;
+    }
+
+    h2{
+        color: #6a79ff;
+    }
+
+    ul{
+        list-style: none;
+        padding: 0;
+        width: 60%;
+    }
+
+    ul > li::before {
+        content: '      ';
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        background-image: url(../icon/check.png);
+        background-size: cover;
+        position: relative;
+        top: 4px;
+        margin: 10px 5px 0px 0px;
+      }
+}
+
+
+/* mentor */
+.mentor .mentor-card a{
+    background-color: #dbd9f7;
+    color: #6a79ff;
+}

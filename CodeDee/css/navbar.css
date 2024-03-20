@@ -1,0 +1,8 @@
+header {
+    background: -webkit-linear-gradient(0deg,  #106eea, #f203ff);
+    top: 0px;
+
+    * {
+        margin: auto 10px;
+    }
+}

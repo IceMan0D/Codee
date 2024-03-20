@@ -1,0 +1,208 @@
+:root {
+    --primary-color: #106eea;
+    --secondary-color: #ffc107;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+
+.tranform-btn {
+    transition: transform 0.3s ease;
+}
+
+.tranform-btn:hover {
+    transform: translateY(-3px);
+}
+
+.intro-left {
+
+    h1 {
+        font-size: 60px;
+    }
+
+    h4 {
+        font-size: 20px;
+    }
+
+    .btn-course {
+        border: 1px solid rgb(36, 35, 35);
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-course:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        transform: translateY(-3px);
+    }
+
+    .button-container {
+        * {
+            margin: 0 5px;
+        }
+
+    }
+
+    .link-course {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .link-course:hover {
+        color: #ffb301 !important;
+        transform: translateY(-3px);
+    }
+
+
+}
+
+#typewriter {
+    display: block;
+    overflow: hidden;
+    width: fit-content;
+    /* Ensures the content is not revealed until the animation */
+    /* The typwriter cursor */
+    white-space: nowrap;
+    /* Gives that scrolling effect as the typing happens */
+    animation:
+        typing 2s steps(40, end);
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* button-animation */
+
+.button {
+    line-height: 1;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .75rem;
+    background-color: var(--clr);
+    color: #fff;
+    border-radius: 10rem;
+    font-weight: 600;
+    padding: .75rem 1.5rem;
+    padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color .3s;
+}
+
+.button__icon-wrapper {
+    flex-shrink: 0;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    color: var(--clr);
+    background-color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.button:hover {
+    background-color: #000;
+}
+
+.button:hover .button__icon-wrapper {
+    color: #000;
+}
+
+.button__icon-svg--copy {
+    position: absolute;
+    transform: translate(-150%, 150%);
+}
+
+.button:hover .button__icon-svg:first-child {
+    transition: transform .3s ease-in-out;
+    transform: translate(150%, -150%);
+}
+
+.button:hover .button__icon-svg--copy {
+    transition: transform .3s ease-in-out .1s;
+    transform: translate(0);
+}
+
+.btn-gradient {
+    background: -webkit-linear-gradient(0deg, var(--primary-color), #f203ff);
+    border: none;
+}
+
+/* highlight-text */
+.highlight {
+    font-size: 72px;
+    background: -webkit-linear-gradient(0deg, var(--primary-color), #f203ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.discover {
+
+    .top {
+
+        * {
+            text-align: center;
+        }
+    }
+
+    .column-content {
+        transition: all 0.5s ease;
+    }
+
+    .column-content:hover {
+        transform: scale(1.05, 1.05);
+    }
+}
+
+.course-column {
+    padding: 10px;
+    position: relative;
+}
+
+.column-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.column-content {
+    padding: 50px;
+    border-radius: 15px;
+
+    p {
+        text-align: justify;
+    }
+
+}
+
+
+.column-link:hover .column-content:not(:hover) {
+    filter: blur(5px);
+}
+
+.contact {
+    .dsc-content {
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.707);
+    }
+
+}

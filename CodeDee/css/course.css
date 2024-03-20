@@ -1,0 +1,350 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif !important;
+}
+
+.icon-container{
+    display: flex;
+    gap: 15px;
+    overflow: hidden;
+    justify-content: center;
+
+    *{
+        width: 50px;
+        height: 50px;
+
+    }
+}
+
+
+.highlight {
+    font-size: 80px;
+    background: -webkit-linear-gradient(0deg, #106eea, #f203ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.top-container{
+    background-color: #ffe7e0;
+
+    #courseName{
+        color: #d9592e;
+        font-size: 3.5rem;
+    }
+    
+    .left{
+        h2{
+            width: 25rem;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+        }
+
+        ul > li::before {
+            content: '      ';
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            background-image: url(../icon/check.png);
+            background-size: cover;
+            position: relative;
+            top: 4px;
+            margin: 10px 5px 0px 0px;
+          }
+    }
+}
+
+/* course-desc */
+.course-dsc{
+
+    #sec2{
+        ul{
+            list-style: none;
+            padding: 0;
+
+            li{
+                font-size: 0.90rem;
+            }
+        }
+
+        ul > li::before {
+            content: '      ';
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            background-image: url(../icon/check.png);
+            background-size: cover;
+            position: relative;
+            top: 4px;
+            margin: 10px 5px 0px 0px;
+          }
+    }
+
+    #sec3{
+        h3{
+            width: 20rem;
+        }
+
+    }
+
+    .servise-content{
+
+        .col{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            img{
+                margin-bottom: 20px;
+                transition: all 0.8s ease-in-out;
+            }
+
+
+        }
+
+        .col:hover{
+            color: #d9592e;
+            cursor: pointer;
+
+            img{
+                transform: scale(1.2,1.2);
+            }
+        }
+        
+    }
+}
+
+/* assure-container */
+
+.assure-container{
+    background: url(../images/contact-bg.jpg);
+    background-size: cover;
+
+    .left{
+        background-color: rgba(255, 255, 255, 0.774);
+    }
+
+    ul{
+        list-style: none;
+        padding: 0;
+
+        li{
+            font-size: 1.25rem;
+        }
+    }
+
+    ul > li::before {
+        content: '      ';
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        background-image: url(../icon/check.png);
+        background-size: cover;
+        position: relative;
+        top: 4px;
+        margin: 10px 5px 0px 0px;
+      }
+
+    .contact-box{
+        
+        
+        position: relative;
+        height: 100px;
+
+        .row{
+            background-color: #d7fec8;
+            position: absolute;
+            border-radius: 20px;
+        }
+
+        img{
+            border-radius: 20px 0 0 20px;
+        }
+
+        
+    }
+
+    
+}
+
+.card1 {
+    background-color: #f9f9f900;
+    border-radius: 10px;
+    border: none;
+  }
+  
+  .code-container {
+    background-color: #222;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  .line {
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 4px 0;
+    position: relative;
+  }
+  
+  .code-comment {
+    color: #5c6370;
+  }
+  
+  .code-keyword {
+    color: #c678dd;
+  }
+  
+  .code-function {
+    color: #61afef;
+  }
+  
+  .code-variable {
+    color: #dcdcaa;
+  }
+  
+  .code-string {
+    color: #98c379;
+  }
+  
+  .indent {
+    padding-left: 20px;
+  }
+  
+  /* Animación */
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+  
+    50% {
+      transform: translateY(-10px);
+    }
+  
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .float-animation {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  .items-container{
+    .itemCard {
+        --main-color: #000;
+        --bg-color: #EBD18D;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        width: 300px;
+        padding: 25px;
+        background: var(--bg-color);
+        border-radius: 20px;
+      }
+      
+      .card__wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .card___wrapper-acounts {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        z-index: 1;
+        cursor: pointer;
+      }
+      
+      .card___wrapper-acounts > div:nth-child(2) {
+        position: absolute;
+        left: 25px;
+        z-index: -1;
+      }
+      
+      .card___wrapper-acounts > div:nth-child(3) {
+        position: absolute;
+        left: 50px;
+        z-index: -2;
+      }
+      
+      .card__score {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        font-size: 16px;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        background: var(--main-color);
+      }
+      
+      .card__acounts {
+        width: 42px;
+        height: 42px;
+      }
+      
+      .card__acounts svg {
+        width: 100%;
+        height: 100%;
+      }
+      
+      .card__menu {
+        width: 40px;
+        height: 40px;
+        background: #F6DB96;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      
+      .card__title {
+        margin-top: 50px;
+        font-weight: 900;
+        font-size: 25px;
+        color: var(--main-color);
+      }
+      
+      .card__subtitle {
+        margin-top: 15px;
+        font-weight: 400;
+        font-size: 15px;
+        color: var(--main-color);
+      }
+      
+      .card__indicator {
+        margin-top: 50px;
+        font-weight: 500;
+        font-size: 14px;
+        color: var(--main-color);
+      }
+      
+      .card__progress progress {
+        width: 100%;
+        height: 4px;
+        border-radius: 100px;
+      }
+      
+      .card__progress progress::-webkit-progress-bar {
+        background-color: #00000030;
+        border-radius: 100px;
+      }
+      
+      .card__progress progress::-webkit-progress-value {
+        background-color: var(--main-color);
+        border-radius: 100px;
+      }
+      
+      
+  }
