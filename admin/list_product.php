@@ -8,47 +8,42 @@
     //Search
     $search = isset($_GET['search_course']) ? trim($_GET['search_course']) : '';
     $searchTerm = "%$search%";
+    $sql = 'SELECT course_id, course_name, course_price, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id';
     
     if(!empty($search)){
-        $sql_search = 'SELECT course.course_id, course.course_name, course.course_price, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id WHERE course.course_name LIKE :search_course';
-        $stmt = $conn->prepare($sql_search);
+        $sql .= ' WHERE course.course_name LIKE :search_course';
+        $stmt = $conn->prepare($sql);
         $stmt->bindValue(':search_course', $searchTerm);
-    }else {
-        $sql_select_product = 'SELECT course_id,course_name, course_price, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id';
+    }else if(isset($_GET['course_type']) && $_GET['course_type'] !== 'all'){
+        $course_type = $_GET['course_type'];
+        $sql .= ' WHERE course.type_id = :type';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':type',$course_type);
+    }
+    else {
+        $sql_select_product = 'SELECT course_id, course_name, course_price, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id';
         $stmt = $conn->prepare($sql_select_product);
     }
     $stmt->execute();
     $course = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // function substring($str) {
-    //     if (strlen($str) >= 50 ){
-    //            $output = mb_substr($str, 0, 50, 'UTF-8');
-    //            return $output.'...';
-    //     }else{
-    //         return $str;
-    //     }
-    // }
 ?>
-
 
 <body>
     <?php 
         if(isset($_POST['id'])){
             $course_id = $_POST['id'];
             echo '<script>
-                // Use SweetAlert2 to show a confirmation dialog
                 Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won\'t be able to revert this!",
+                    title: "คุณแน่ใจใช่หรือไม่?",
+                    text: "หากลบจะไม่สามารถเรียกคืนได้",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
+                    confirmButtonText: "ใช่, ลบมัน!",
+                    cancelButtonText: "ยกเลิก"
                 }).then((result) => {
-                    // If the user clicks the confirm button
                     if (result.isConfirmed) {
-                    // Redirect to a page to perform the actual delete
                     window.location.href = "delete_product.php?id='.$course_id.'";
                 }
                 });
@@ -57,25 +52,23 @@
     ?>
     <div class="container my-5">
         <a href="create_product.php" class="btn btn-success">เพิ่มบทเรียน</a>
+
         <!-- search แบบกรอกข้อความ -->
         <form action="">
             <div class="input-group my-3">
-                <input type="text" class="form-control" placeholder="กรอกชื่อสินค้า" name="search_course"
+                <input type="text" class="form-control" placeholder="กรอกชื่อบทเรียน" name="search_course"
                     value="<?php echo $search ?>">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">ค้นหา</button>
             </div>
         </form>
-        <!-- search ประเภท -->
-        <!-- <form action="">
-            <select class="form-select" aria-label="Default select example">
-                <option selected>เลือกประเภท</option>
-                <option value="1">Full Stack Developer</option>
-                <option value="2">Back End Developer</option>
-                <option value="3">Front-End Developer</option>
-                <option value="3">UX/UI Design</option>
-                <option value="3">Free Course</option>
-            </select>
-        </form> -->
+        <div class="mt-4 mb-5 container">
+            <a href="list_product.php?course_type=all" class="btn border border-1 p-3">💾 ทั้งหมด</a>
+            <a href="list_product.php?course_type=1" class="btn border border-1 p-3">💻 Full Stack Develooper</a>
+            <a href="list_product.php?course_type=2" class="btn border border-1 p-3">📱 Back End Developer</a>
+            <a href="list_product.php?course_type=3" class="btn border border-1 p-3">👾 Front-End Developer</a>
+            <a href="list_product.php?course_type=4" class="btn border border-1 p-3">💾 UX/UI Design</a>
+            <a href="list_product.php?course_type=5" class="btn border border-1 p-3">💾 Free Course</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>

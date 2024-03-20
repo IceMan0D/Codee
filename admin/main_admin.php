@@ -8,8 +8,9 @@
 ?>
 
 <body>
-    welcome admin <?php echo 'test'?>
+    welcome admin <?php //echo 'test' ?>
     <button class="btn btn-primary">fd</button>
+
 
     <?php
         //   $sql2 = 'SELECT user.status_id, status.status_name

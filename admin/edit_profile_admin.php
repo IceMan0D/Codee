@@ -23,9 +23,9 @@
         $stmt2->bindParam(':user_id', $user, PDO::PARAM_INT);
         $stmt2->execute();
         $message = 'success';
+        // header('location: edit_profile_admin.php');
+        // exit();
 
-        header('location: edit_profile_admin.php');
-        exit();
     }
 ?>
 
@@ -43,7 +43,12 @@
             Swal.fire({
                 title: "แก้ไขสำเร็จ",
                 icon: "success"
-              });</script>'
+              });
+              setTimeout(() => {
+                window.location.href = "edit_profile_admin.php";
+              }, 1000);
+        </script>'
+        
         ?>
     <?php endif; ?>
     <div class="container">

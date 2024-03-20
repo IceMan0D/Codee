@@ -6,7 +6,7 @@
         '<script>
                 setTimeout(() => {
                 },1000)
-                window.location.href = "../Login_User.php";
+                window.location.href = "../CodeDee/index.php";
         </script>';
         exit;
     }

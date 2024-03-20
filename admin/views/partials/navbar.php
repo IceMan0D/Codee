@@ -20,7 +20,7 @@
                     <a class="nav-link" aria-current="page" href="main_admin.php">หน้าแรก</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">สินค้าทั้งหมด</a>
+                    <a class="nav-link" href="product_page.php">สินค้าทั้งหมด</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="list_product.php">จัดการสินค้า</a>
