@@ -70,16 +70,7 @@
     }
     
 ?>
-<!-- <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แก้ไขคอร์ส</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head> -->
 <?php     
     $title = 'แก้ไขคอร์ส';
     include_once 'views/partials/header.php';
@@ -133,8 +124,8 @@
                     <?php
                         $choice = [
                             1 => 'Full Stack Develope',
-                            2 => 'Front-End Developer',
-                            3 => 'Back End Developer',
+                            2 => 'Back End Developer',
+                            3 => 'Front-End Developer',
                             4 => 'UX/UI Design',
                             5 => 'Free Course',
                         ];

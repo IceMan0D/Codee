@@ -57,6 +57,7 @@
             $errors[] = 'กรุณาอัพโหลดไฟล์ภาพ';
         }
 
+        // หากไม่มี error แล้วถึงจะ insert
         if(empty($errors)){
             $sql_insert = 'INSERT INTO course (course_name, course_img ,course_price, 
                             course_detail, course_example, type_id ,requirements , description, suitable_for) 
@@ -79,45 +80,51 @@
                 )
             );
 
-            $message = 'เพิ่มข้อมูลสำเร็จ';
-            // header('location: list_product.php');
-            // exit();
+            // ประกาศตัวแปร บอกว่า เพิ่มส้นค้าสำเร็จ
+            $message = 'เพิ่มสินค้าสำเร็จ';
+
+            //เคลียข้อมูลหลังจากเพิ่มสินค้า
+            $course_name = '';
+            $course_price = '';
+            $course_detail = '';
+            $course_example ='';
+            $requirement = '';
+            $description = '';
+            $suitable = '';
+            $_POST['course_type'] = '';
         }
     }
 ?>
 
 <?php
+    //เพิ่มส่วน header ของ html และ แถบเมนูด้านบน
     $title = 'ลงคอร์ส';
     include_once 'views/partials/header.php';
     include_once 'views/partials/navbar.php';
 ?>
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ลงคอร์ส</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head> -->
 
 <body>
     <div class="container my-5">
         <!-- แสดง errors -->
         <?php if(!empty($errors)):?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <?php foreach ($errors as $error): ?>
             <p><?php echo $error?></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <?php endforeach ;?>
         </div>
+        <!--  -->
         <?php endif ;?>
+        <!-- แสดงว่า insert สำเร็จ -->
         <?php if(!empty($message)): ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $message?>
-        </div>
+        <?php echo '<script>
+            Swal.fire({
+                title: "'.$message.'",
+                icon: "success"
+              });</script>'?>
         <?php endif ;?>
-        <!-- <a href="list_product.php" class="btn btn-primary my-2">กลับสู่หน้าหลัก</a> -->
+        <!--  -->
+        <a href="" class=""></a>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="formFile" class="form-label">อัพโหลดไฟล์ภาพสำหรับปก</label>
@@ -129,7 +136,6 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ราคา</label>
-                <!-- <input type="text" name="course_price" id="" class="form-control"  -->
                 <input type="number" class="form-control" id="" min=0 name="course_price"
                     value="<?php echo $course_price;?>"></input>
             </div>
