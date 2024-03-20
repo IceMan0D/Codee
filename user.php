@@ -1,6 +1,8 @@
 <?php 
     session_start();
     require_once 'conn.php';
+    require_once'product_show.php'; 
+
     if (!isset($_SESSION['user_login'])) {
         $_SESSION['error'] = 'กรุณาเข้าสู่ระบบ!';
         header('location: Login_User.php');
@@ -42,6 +44,8 @@ if (isset($_SESSION['user_login'])) {
         <br>
         <a href="Logout.php" class="btn btn-primary" name="logout"  >ออกจากระบบ</a>
     </div>
+    
 </body>
 
 </html>
+<?php  ?>
