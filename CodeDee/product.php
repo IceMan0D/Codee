@@ -1,9 +1,15 @@
 <?php
     require_once '../conn.php';
 
-    $course_type = '';
+     $course_type = '';
+     $perpage = 9;
+ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+ $offset = ($page - 1) * $perpage;
 
-    $sql = 'SELECT * FROM course INNER JOIN type ON course.type_id = type.type_id';
+    $sql = 'SELECT * FROM course INNER JOIN type ON course.type_id = type.type_id  LIMIT :limit OFFSET :offset ';
+   
+
+
     
     if(isset($_GET['course_type']) && $_GET['course_type'] !== 'all'){
         $course_type = $_GET['course_type'];
@@ -13,8 +19,10 @@
     }else{
         $stmt = $conn->prepare($sql);
     }
+    $count = $stmt->rowCount(); 
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $perpage, PDO::PARAM_INT);
     $stmt->execute();
-    $count = $stmt->rowCount();
     $course = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -90,6 +98,27 @@
     </div>
     </div>
 
+    <div class='pagination container'>
+        <?php
+        
+        $stmt = $conn->prepare('SELECT COUNT(*) as count FROM course INNER JOIN type ON course.type_id = type.type_id');
+        $stmt->execute();
+        $total = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+        $pages = ceil($total / $perpage);
+
+        for ($i = 1; $i <= $pages; $i++) {
+            if ($i == $page) {
+                echo "<buttun class='btn btn-outline-primary '>$i</buttun>";
+            } else {
+                echo "<a href='?page=$i'>$i</a>";
+            }
+        }
+        
+        ?>
+    </div>
+    
+
+   
     <?php include "footer.php"?>
 </body>
 

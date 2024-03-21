@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!$_SESSION['admin_login']){
+    if(!$_SESSION['sale_login']){
         echo '<script>alert("ท่านไม่มีสิทธิเข้าถึงหน้านี้.");</script>';
         echo 
         '<script>

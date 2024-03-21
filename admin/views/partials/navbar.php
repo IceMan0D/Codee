@@ -1,7 +1,9 @@
 <?php 
     require_once '../conn.php';
     // session_start();
-    $status = $_SESSION['admin_login'];
+
+    //เดี๋ยวมาเปลี่ยนกลับ เป็นแอดมิน
+    $status = $_SESSION['sale_login'];
     $stmt = $conn->prepare('SELECT user_username FROM user WHERE user_id = :user_id');
     $stmt->bindParam(':user_id', $status);
     $stmt->execute();

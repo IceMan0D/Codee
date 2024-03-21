@@ -4,6 +4,7 @@
 require_once('../conn.php');
 
 $course_name=['course_name'];
+require_once('../product_show.php')
 
 ?>
 <!DOCTYPE html>
