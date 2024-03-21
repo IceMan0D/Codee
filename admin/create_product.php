@@ -68,11 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = 'กรุณาอัพโหลดไฟล์ภาพ';
     }
 
-    // หากไม่มี error แล้วถึงจะ insert
-    if (empty($errors)) {
-
-
-        $sql_insert = 'INSERT INTO course (user_username,course_name, course_img ,course_price, 
+        // หากไม่มี error แล้วถึงจะ insert
+        if(empty($errors)){
+            $sql_insert = 'INSERT INTO course (course_name, course_img ,course_price, 
                             course_detail, course_example, type_id ,requirements , description, suitable_for) 
                             VALUES (:user_name,:course_name, :course_img ,:course_price, :course_detail,
                             :course_example, :course_type ,:requirement, :description, :suitable)';
