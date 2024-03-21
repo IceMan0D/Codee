@@ -1,9 +1,10 @@
 <?php 
     require_once '../conn.php';
-    // session_start();
+
+    session_start();
 
     //เดี๋ยวมาเปลี่ยนกลับ เป็นแอดมิน
-    $status = $_SESSION['admin_login'];
+    $status = $_SESSION['sale_login'];
     $stmt = $conn->prepare('SELECT user_username FROM user WHERE user_id = :user_id');
     $stmt->bindParam(':user_id', $status);
     $stmt->execute();
@@ -19,13 +20,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="main_admin.php">หน้าแรก</a>
+                    <a class="nav-link" aria-current="page" href="sale.php">หน้าแรก</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="product_page.php">สินค้าทั้งหมด</a>
+                    <a class="nav-link" href="product_show.php">สินค้าทั้งหมด</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="list_product.php">จัดการสินค้า</a>
+                    <a class="nav-link" href="showsale.php">จัดการสินค้า</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="createproduct.php">เพิ่มสินค้า</a>
                 </li>
 
             </ul>
@@ -51,8 +55,8 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="edit_profile_admin.php">จัดการบัญชี</a></li>
-                        <li><a class="dropdown-item" href="logout.php">ออกจากระบบ</a></li>
+                        <li><a class="dropdown-item" href="editsae.php">จัดการบัญชี</a></li>
+                        <li><a class="dropdown-item" href="../logout.php">ออกจากระบบ</a></li>
                     </ul>
                 </li>
             </ul>

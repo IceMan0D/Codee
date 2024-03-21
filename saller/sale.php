@@ -1,6 +1,4 @@
 <?php
-
-
 require_once('../conn.php');
 
 $course_name=['course_name'];
