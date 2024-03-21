@@ -1,7 +1,7 @@
 <?php 
     session_start();
     require_once 'conn.php';
-    require_once'product_show.php'; 
+   // require_once'product_show.php'; 
 
     if (!isset($_SESSION['user_login'])) {
         $_SESSION['error'] = 'กรุณาเข้าสู่ระบบ!';
@@ -31,7 +31,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="user.php">HOME</a>
         <a class="nav-link" href="edituser.php">EDIT PROFLIE</a>
-        <a class="nav-link" href="Log-out.php">LOG-OUT</a>
+        <a class="nav-link" href="Logout.php">LOG-OUT</a>
       </div>
     </div>
   </div>

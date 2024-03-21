@@ -1,6 +1,11 @@
 <?php
-session_start();
-require_once '../conn.php';
+
+require_once ('../conn.php');
+require_once('navbarsaller.php');
+
+$perpage = 9;
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$offset = ($page - 1) * $perpage;
 
 // เรียกข้อมูลผู้ใช้
 $user_id = $_SESSION['sale_login'];
@@ -9,8 +14,8 @@ $stmt_user->bindParam(':user_id', $user_id);
 $stmt_user->execute();
 $user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
-// แสดงผลข้อมูลผู้ใช้
-echo $user['user_username'];
+
+//echo $user['user_username'];
 
 // เรียกข้อมูลคอร์สที่ผู้ใช้คนนั้นเป็นผู้ขาย
 $stmt_course = $conn->prepare('SELECT course.*, user.user_username AS course_seller 
@@ -22,7 +27,7 @@ $stmt_course->execute();
 $courses = $stmt_course->fetchAll(PDO::FETCH_ASSOC);
 
 // แสดงผลข้อมูลคอร์ส
-var_dump($courses);
+//var_dump($courses);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,24 +48,39 @@ var_dump($courses);
         <div class="row">
             <?php
             foreach ($courses as $course) {  ?>
-                <div class="col-4">
-                    <div class="card">
+             
                         <div class="col-lg-4">
-                            <div class="card card-top" style="width: 18rem;">
+                            <div class="card card p-2 m-3" style="width: 18rem;">
                                 <div class="showproduct ">
-                                    <img src="<?php echo $course['course_img']; ?>" class="img-fluid">
+                                    <img src="<?php echo $course['course_img']; ?>" class="">
                                 </div>
                                 <div>
                                     <p class="title"><?php echo $course['course_name']; ?></p>
                                     <p class=""><?php echo $course['course_detail']; ?></p>
+                                    <p class=""><?php echo $course['course_price']; ?></p>
                                     <button class="btn btn-success">Order</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+               
             <?php } ?>
         </div>
+    </div>
+    <div class='container d-flex justify-content-between'>
+        <?php
+        $stmt = $conn->prepare('SELECT COUNT(*) as count FROM course');
+        $stmt->execute();
+        $total = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+        $pages = ceil($total / $perpage);
+
+        for ($i = 1; $i <= $pages; $i++) {
+            if ($i == $page) {
+                echo "<buttun class='btn btn-primary '>$i</buttun>";
+            } else {
+                echo "<a href='?page=$i'>$i</a>";
+            }
+        }
+        ?>
     </div>
 </body>
 

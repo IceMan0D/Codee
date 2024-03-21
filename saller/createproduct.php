@@ -2,9 +2,11 @@
 session_start();
 require_once '../conn.php';
 // เดี๋ยวมาเเก้ให้นะเจ๋ง 
- require_once 'check_permission.php';
+require_once('headsale.php');
+require_once('navbarsaller.php');
+require_once '../admin/check_permission.php';
 
-$status = $_SESSION['admin_login'];
+$status = $_SESSION['sale_login'];
 $stmt = $conn->prepare('SELECT user_username FROM user WHERE user_id = :user_id');
 $stmt->bindParam(':user_id', $status);
 $stmt->execute();
@@ -112,8 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php
 //เพิ่มส่วน header ของ html และ แถบเมนูด้านบน
 $title = 'ลงคอร์ส';
-include_once 'views/partials/header.php';
-include_once 'views/partials/navbar.php';
+ //include_once '../Codee/admin/views/partials/header.php';
+ //include_once 'navbarsaller.php';
+
 ?>
 
 <body>
