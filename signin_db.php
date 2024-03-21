@@ -33,10 +33,10 @@
                                 header("location: admin/main_admin.php");
                             }elseif($row['status_id'] == 2){
                                 $_SESSION['sale_login'] = $row['user_id'];
-                                header("location: saler/sale.php");
+                                header("location: saller/sale.php");
                             }elseif($row['status_id'] == 3){
                                 $_SESSION['user_login'] = $row['user_id'];
-                                header("location: user.php");
+                                header("location: ./CodeDee/index.php");
                             }elseif($row['status_id'] == 4){
                                 $_SESSION['meter_login'] = $row['user_id'];
                                 header("location: meter.php");

@@ -1,10 +1,9 @@
-
 <?php 
 session_start();
 // ทำลาย session ทั้งหมด
 session_destroy();
 // ลบคุณสมบัติ session
-unset($_SESSION['user_login']);
+// unset($_SESSION['user_login']);
 // ลบคุณสมบัติ session อื่น ๆ ตามต้องการ (ถ้ามี)
 
 // ตรวจสอบว่าคุณกำลังใช้งาน session หรือไม่ หากใช้งานให้ลบ session ปัจจุบัน

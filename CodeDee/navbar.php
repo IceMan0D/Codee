@@ -61,6 +61,12 @@
                     ?>
                     <!-- หาก login แล้วให้มี ชื่อ  username แสดง -->
                     <?php if(isset($_SESSION['user_login'])){ ?>
+                    <li>
+                        <a class="nav-link" href="#">ตระกร้า</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#">แจ้งเตือน</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -71,13 +77,13 @@
                             <li><a class="dropdown-item" href="../Logout.php">ออกจากระบบ</a></li>
                         </ul>
                     </li>
+
+
                     <!-- หากไม่ได้ login แสดงเหมือนเดิม -->
                     <?php }else { ?>
                     <a class="nav-link me-3" href="../Login_User.php">เข้าสู่ระบบ</a>
                     <?php }?>
-                    <a href="product.php" class="btn btn-primary text-white btn-gradient">เริ่มเข้าสู่บทเรียน</a>
-                    <a class="nav-link d-none" href="#">ตระกร้า</a>
-                    <a class="nav-link d-none" href="#">แจ้งเตือน</a>
+                    <!-- <a href="product.php" class="btn btn-primary text-white btn-gradient">เริ่มเข้าสู่บทเรียน</a> -->
                 </div>
 
 
