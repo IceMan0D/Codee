@@ -2,6 +2,7 @@
     require_once 'check_permission.php';
     require_once '../conn.php';
     
+
     $sql = 'SELECT * FROM course';
     $stmt = $conn->prepare($sql);
     $stmt->execute();

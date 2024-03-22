@@ -149,13 +149,14 @@ $title = 'ลงคอร์ส';
                 <label for="formFile" class="form-label">อัพโหลดไฟล์ภาพสำหรับปก</label>
                 <input class="form-control" type="file" id="formFile" name="image">
             </div>
+            
             <div class="mb-3">
                 <label for="" class="form-label">ชื่อบทเรียน</label>
                 <input type="text" class="form-control" id="" value="<?php echo $course_name; ?>" name="course_name">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ชื่อผู้ขาย</label>
-                <input type="text" class="form-control" id="" value="<?php echo $user_name['user_username']; ?>" name="course_seller">
+                <input type="text" class="form-control" id="" value="<?php echo $user_name['user_username']; ?>" name="user_name">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ราคา</label>
@@ -175,19 +176,17 @@ $title = 'ลงคอร์ส';
                     <option value="0">กรุณาเลือกประเภทของบทเรียน</option>
                     <option value="1" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 1) {
                                             echo 'selected';
-                                        } ?>>Full
-                        Stack
-                        Developer
+                                        } ?>>Web Developer
                     </option>
                     <option value="2" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 2) {
                                             echo 'selected';
                                         } ?>>
-                        Front-End
+                        SoftWare
                         Developer
                     </option>
                     <option value="3" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 3) {
                                             echo 'selected';
-                                        } ?>>Back End
+                                        } ?>>Game
                         Developer
                     </option>
                     <option value="4" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 4) {
@@ -198,6 +197,11 @@ $title = 'ลงคอร์ส';
                     <option value="5" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 5) {
                                             echo 'selected';
                                         } ?>>Free
+                        Course
+                    </option>
+                    <option value="6" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 6) {
+                                            echo 'selected';
+                                        } ?>>Data Analyst
                         Course
                     </option>
                 </select>

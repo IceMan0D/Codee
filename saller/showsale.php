@@ -52,13 +52,18 @@ $courses = $stmt_course->fetchAll(PDO::FETCH_ASSOC);
                         <div class="col-lg-4">
                             <div class="card card p-2 m-3" style="width: 18rem;">
                                 <div class="showproduct ">
-                                    <img src="<?php echo $course['course_img']; ?>" class="">
+                                    <img src="../img/course_img/<?php echo $c['course_img'] ?>" class="">
                                 </div>
                                 <div>
                                     <p class="title"><?php echo $course['course_name']; ?></p>
                                     <p class=""><?php echo $course['course_detail']; ?></p>
                                     <p class=""><?php echo $course['course_price']; ?></p>
-                                    <button class="btn btn-success">Order</button>
+                                    <a href="updateproduct.php?id=<?php echo $course['course_id'];?>"
+                            class="btn btn-primary">แก้ไข</a>
+                        <!-- ปุ่มลบ -->
+                        <a href="addpartsale.php?id=<?php echo $course['course_id']; ?>">
+                        <div class="btn btn-warning">เพิ่มบทเรียน</div>   </a>
+                    
                                 </div>
                             </div>
                         </div>
