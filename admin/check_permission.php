@@ -1,15 +1,18 @@
 <?php
-    // session_start();
-    if($_SESSION['sale_login']||$_SESSION['admin_login']){
-        
-    }else{
+    session_start();
+
+    if(!empty($_SESSION['sale_login'])){
+        header('location: ../saller/sale.php');
+        exit;
+    }else if(empty($_SESSION['sale_login']) && empty($_SESSION['admin_login'])){
         echo '<script>alert("ท่านไม่มีสิทธิเข้าถึงหน้านี้.");</script>';
         echo 
         '<script>
-                setTimeout(() => {
-                },1000)
-                window.location.href = "../CodeDee/index.php";
+        setTimeout(() => {
+        },1000)
+        window.location.href = "../CodeDee/index.php";
         </script>';
         exit;
     }
+    
 ?>

@@ -62,7 +62,7 @@
                     <!-- หาก login แล้วให้มี ชื่อ  username แสดง -->
                     <?php if(isset($_SESSION['user_login'])){ ?>
                     <li>
-                        <a class="nav-link" href="#">ตระกร้า</a>
+                        <a class="nav-link" href="../cart_2.php">ตระกร้า</a>
                     </li>
                     <li>
                         <a class="nav-link" href="#">แจ้งเตือน</a>
