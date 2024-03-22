@@ -12,6 +12,7 @@
         },1000)
         window.location.href = "../CodeDee/index.php";
         </script>';
+        exit;
     }
     
 ?>
