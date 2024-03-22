@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 require_once '../conn.php';
 // เดี๋ยวมาเเก้ให้นะเจ๋ง 
  require_once 'check_permission.php';
@@ -97,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $message = 'เพิ่มสินค้าสำเร็จ';
 
         //เคลียข้อมูลหลังจากเพิ่มสินค้า
+        
         $course_name = '';
         $course_price = '';
         $course_detail = '';
@@ -117,23 +118,23 @@ include_once 'views/partials/navbar.php';
 ?>
 
 <body>
-    
+
     <div class="container my-5">
         <!-- แสดง errors -->
         <?php if (!empty($errors)) : ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php foreach ($errors as $error) : ?>
-                    <p><?php
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php foreach ($errors as $error) : ?>
+            <p><?php
                        
                         echo $error ?></p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <?php endforeach; ?>
-            </div>
-            <!--  -->
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <?php endforeach; ?>
+        </div>
+        <!--  -->
         <?php endif; ?>
         <!-- แสดงว่า insert สำเร็จ -->
         <?php if (!empty($message)) : ?>
-            <?php echo '<script>
+        <?php echo '<script>
             Swal.fire({
                 title: "' . $message . '",
                 icon: "success"
@@ -152,19 +153,23 @@ include_once 'views/partials/navbar.php';
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ชื่อผู้ขาย</label>
-                <input type="text" class="form-control" id="" value="<?php echo $user_name['user_username']; ?>" name="course_seller">
+                <input type="text" class="form-control" id="" value="<?php echo $user_name['user_username']; ?>"
+                    name="course_seller">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ราคา</label>
-                <input type="number" class="form-control" id="" min=0 name="course_price" value="<?php echo $course_price; ?>"></input>
+                <input type="number" class="form-control" id="" min=0 name="course_price"
+                    value="<?php echo $course_price; ?>"></input>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">รายละเอียดของบทเรียน</label>
-                <textarea class="form-control" id="" rows="3" name="course_detail"><?php echo $course_detail; ?></textarea>
+                <textarea class="form-control" id="" rows="3"
+                    name="course_detail"><?php echo $course_detail; ?></textarea>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ลิ้งตัวอย่างวีดีโอ</label>
-                <textarea class="form-control" id="" rows="3" name="course_example"><?php echo $course_example; ?></textarea>
+                <textarea class="form-control" id="" rows="3"
+                    name="course_example"><?php echo $course_example; ?></textarea>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">ประเภทของบทเรียน</label>
@@ -172,20 +177,16 @@ include_once 'views/partials/navbar.php';
                     <option value="0">กรุณาเลือกประเภทของบทเรียน</option>
                     <option value="1" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 1) {
                                             echo 'selected';
-                                        } ?>>Full
-                        Stack
-                        Developer
+                                        } ?>>Web Developer
                     </option>
                     <option value="2" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 2) {
                                             echo 'selected';
                                         } ?>>
-                        Front-End
-                        Developer
+                        Software Developer
                     </option>
                     <option value="3" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 3) {
                                             echo 'selected';
-                                        } ?>>Back End
-                        Developer
+                                        } ?>>Game Developer
                     </option>
                     <option value="4" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 4) {
                                             echo 'selected';
@@ -196,6 +197,10 @@ include_once 'views/partials/navbar.php';
                                             echo 'selected';
                                         } ?>>Free
                         Course
+                    </option>
+                    <option value="5" <?php if (isset($_POST['course_type']) && $_POST['course_type'] == 6) {
+                                            echo 'selected';
+                                        } ?>> Data Analytics
                     </option>
                 </select>
             </div>

@@ -8,7 +8,7 @@
 ?>
 
 <body>
-    welcome admin <?php //echo 'test' ?>
+    welcome admin xx <?php //echo 'test' ?>
     <button class="btn btn-primary">fd</button>
 
 

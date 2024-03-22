@@ -123,11 +123,12 @@
                     <option value="0">กรุณาเลือกประเภทของบทเรียน</option>
                     <?php
                         $choice = [
-                            1 => 'Full Stack Develope',
-                            2 => 'Back End Developer',
-                            3 => 'Front-End Developer',
+                            1 => 'Web Developer',
+                            2 => 'Sofeware Developer',
+                            3 => 'Game Developer',
                             4 => 'UX/UI Design',
                             5 => 'Free Course',
+                            6 => 'Data Analysis'
                         ];
                         foreach ($choice as $key => $value) {
                             $selected = ($course['type_id'] == $key) ? 'selected' : '';

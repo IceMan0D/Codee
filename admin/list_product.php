@@ -60,7 +60,8 @@ include_once 'views/partials/navbar.php';
         <!-- search แบบกรอกข้อความ -->
         <form action="">
             <div class="input-group my-3">
-                <input type="text" class="form-control" placeholder="กรอกชื่อบทเรียน" name="search_course" value="<?php echo $search ?>">
+                <input type="text" class="form-control" placeholder="กรอกชื่อบทเรียน" name="search_course"
+                    value="<?php echo $search ?>">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">ค้นหา</button>
             </div>
         </form>
@@ -73,11 +74,11 @@ include_once 'views/partials/navbar.php';
         ?>
         <div class="mt-4 mb-5 container">
             <a href="list_product.php?course_type=all"
-                class="btn <?php if($_GET['course_type'] == 'all'){echo 'btn-primary';}?> border border-1 p-3">ทั้งหมด</a>
+                class="btn <?php if(isset($_GET['course_type']) && $_GET['course_type'] == 'all'){echo 'btn-primary';}?> border border-1 p-3">ทั้งหมด</a>
             <!-- Loop คอส -->
             <?php foreach($course_types as $course_type): ?>
             <a href="list_product.php?course_type=<?php echo $course_type['type_id'] ?>"
-                class="btn <?php if($_GET['course_type'] == $course_type['type_id']){echo 'btn-primary';}?> border border-1 p-3"><?php echo $course_type['type_name']?></a>
+                class="btn <?php if(isset($_GET['course_type']) && $_GET['course_type'] == $course_type['type_id']){echo 'btn-primary';}else{ echo '';}?> border border-1 p-3"><?php echo $course_type['type_name']?></a>
             <?php endforeach; ?>
         </div>
         <table class="table">
@@ -93,33 +94,25 @@ include_once 'views/partials/navbar.php';
             </thead>
             <tbody>
                 <?php foreach ($course as $i => $courses) : ?>
-                    <tr>
-                        <th scope="row"><?php echo $i + 1 ?></th>
-                        <td><?php echo $courses['course_name'] ?></td>
-                        <td><?php echo $courses['course_price'] ?></td>
-                        <td><?php echo $courses['type_name'] ?></td>
-                        <td>
-                            <!-- ปุ่มแก้ไข -->
-                            <a href="edit_product.php?id=<?php echo $courses['course_id']; ?>" class="btn btn-primary">แก้ไข</a>
-                            <!-- ปุ่มลบ -->
-                            <form action="" method="post" style="display: inline-block;" id="delete_form">
-                                <input type="hidden" name="id" value="<?php echo $courses['course_id']; ?>">
-                                <input type="submit" value="ลบ" class="btn btn-danger">
-                            </form>
-                        </td>
-                    </tr>
+                <tr>
+                    <th scope="row"><?php echo $i + 1 ?></th>
+                    <td><?php echo $courses['course_name'] ?></td>
+                    <td><?php echo $courses['course_price'] ?></td>
+                    <td><?php echo $courses['type_name'] ?></td>
+                    <td>
+                        <!-- ปุ่มแก้ไข -->
+                        <a href="edit_product.php?id=<?php echo $courses['course_id']; ?>"
+                            class="btn btn-primary">แก้ไข</a>
+                        <!-- ปุ่มลบ -->
+                        <form action="" method="post" style="display: inline-block;" id="delete_form">
+                            <input type="hidden" name="id" value="<?php echo $courses['course_id']; ?>">
+                            <input type="submit" value="ลบ" class="btn btn-danger">
+                        </form>
+                    </td>
+                </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <div class="pagination">
-            <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-            <?php endfor; ?>
-        </div>
-        
-
-
-
 </body>
 
 </html>
