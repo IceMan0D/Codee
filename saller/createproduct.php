@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require_once '../conn.php';
 // เดี๋ยวมาเเก้ให้นะเจ๋ง 
 require_once('headsale.php');
