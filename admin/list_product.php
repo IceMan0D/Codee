@@ -8,21 +8,22 @@
     //Search
     $search = isset($_GET['search_course']) ? trim($_GET['search_course']) : '';
     $searchTerm = "%$search%";
-    $sql = 'SELECT course_id, course_name, course_price, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id';
+    $sql = 'SELECT course_id, course_name, course_price, type.type_name , type.type_id FROM course INNER JOIN type ON course.type_id = type.type_id';
     
     if(!empty($search)){
         $sql .= ' WHERE course.course_name LIKE :search_course';
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':search_course', $searchTerm);
-    }else if(isset($_GET['course_type']) && $_GET['course_type'] !== 'all'){
+    }
+    else if(isset($_GET['course_type']) && $_GET['course_type'] !== 'all'){
         $course_type = $_GET['course_type'];
         $sql .= ' WHERE course.type_id = :type';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':type',$course_type);
     }
     else {
-        $sql_select_product = 'SELECT course_id, course_name, course_price, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id';
-        $stmt = $conn->prepare($sql_select_product);
+        // $sql_select_product = 'SELECT course_id, course_name, course_price, type.type_name FROM course INNER JOIN type ON course.type_id = type.type_id';
+        $stmt = $conn->prepare($sql);
     }
     $stmt->execute();
     $course = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -61,13 +62,21 @@
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">ค้นหา</button>
             </div>
         </form>
+        <?php
+            //ดึงข้อมูล ประเภทคอส
+            $sql_course_type = 'SELECT * FROM type';
+            $stmt_course_type = $conn->prepare($sql_course_type);
+            $stmt_course_type->execute();
+            $course_types = $stmt_course_type->fetchAll();
+        ?>
         <div class="mt-4 mb-5 container">
-            <a href="list_product.php?course_type=all" class="btn border border-1 p-3">💾 ทั้งหมด</a>
-            <a href="list_product.php?course_type=1" class="btn border border-1 p-3">💻 Full Stack Develooper</a>
-            <a href="list_product.php?course_type=2" class="btn border border-1 p-3">📱 Back End Developer</a>
-            <a href="list_product.php?course_type=3" class="btn border border-1 p-3">👾 Front-End Developer</a>
-            <a href="list_product.php?course_type=4" class="btn border border-1 p-3">💾 UX/UI Design</a>
-            <a href="list_product.php?course_type=5" class="btn border border-1 p-3">💾 Free Course</a>
+            <a href="list_product.php?course_type=all"
+                class="btn <?php if($_GET['course_type'] == 'all'){echo 'btn-primary';}?> border border-1 p-3">ทั้งหมด</a>
+            <!-- Loop คอส -->
+            <?php foreach($course_types as $course_type): ?>
+            <a href="list_product.php?course_type=<?php echo $course_type['type_id'] ?>"
+                class="btn <?php if($_GET['course_type'] == $course_type['type_id']){echo 'btn-primary';}?> border border-1 p-3"><?php echo $course_type['type_name']?></a>
+            <?php endforeach; ?>
         </div>
         <table class="table">
             <thead>
