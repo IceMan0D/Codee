@@ -1,6 +1,6 @@
 <?php
 
-require_once ('../conn.php');
+require_once('../conn.php');
 require_once('navbarsaller.php');
 
 $perpage = 9;
@@ -48,30 +48,32 @@ $courses = $stmt_course->fetchAll(PDO::FETCH_ASSOC);
         <div class="row">
             <?php
             foreach ($courses as $course) {  ?>
-             
-                        <div class="col-lg-4">
-                            <div class="card card p-2 m-3" style="width: 18rem;">
-                                <div class="showproduct ">
-                                    <img src="../img/course_img/<?php echo $c['course_img'] ?>" class="">
-                                </div>
-                                <div>
-                                    <p class="title"><?php echo $course['course_name']; ?></p>
-                                    <p class=""><?php echo $course['course_detail']; ?></p>
-                                    <p class=""><?php echo $course['course_price']; ?></p>
-                                    <a href="updateproduct.php?id=<?php echo $course['course_id'];?>"
-                            class="btn btn-primary">แก้ไข</a>
-                        <!-- ปุ่มลบ -->
-                        <a href="addpartsale.php?id=<?php echo $course['course_id']; ?>">
-                        <div class="btn btn-warning">เพิ่มบทเรียน</div>   </a>
-                    
-                                </div>
-                            </div>
+
+                <div class="col-md-4">
+                   
+
+                    <!-- cardtest -->
+                    <div class="card M-3">
+                        <div class="card-image ">
+                        <img src="../img/course_img/<?php echo $course['course_img'] ?>" class="img-thumbnail"  alt="...">
                         </div>
-               
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $course['course_name'] ?></h5>
+                            <p class="card-text"><?php echo $course['description'] ?></p>
+                            <p class="card-text"><?php echo $course['course_price'] ?></p>
+                            <a href="updateproduct.php?id=<?php echo $course['course_id']; ?>" class="btn btn-primary">แก้ไข</a>
+                            <!-- ปุ่มลบ -->
+                            <a href="addpartsale.php?id=<?php echo $course['course_id']; ?>">
+                                <div class="btn btn-warning">เพิ่มบทเรียน</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             <?php } ?>
         </div>
     </div>
-    <div class='container d-flex justify-content-between'>
+    <div class='pagination d-flex justify-content-center mt-5'>
         <?php
         $stmt = $conn->prepare('SELECT COUNT(*) as count FROM course');
         $stmt->execute();
@@ -87,6 +89,60 @@ $courses = $stmt_course->fetchAll(PDO::FETCH_ASSOC);
         }
         ?>
     </div>
+    <style>
+        .card-image img {
+        width: 100%; /* Ensures the image fills its container */
+        height: auto; /* Maintains aspect ratio */
+    }
+        .card {
+            padding: 20px;
+            width: 330px;
+            min-height: 370px;
+            border-radius: 20px;
+            background: #212121;
+            box-shadow: 5px 5px 8px #1b1b1b,
+                -5px -5px 8px #272727;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            translate: 0 -10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #b2eccf;
+            margin: 15px 0 0 10px;
+        }
+
+        .card-image {
+            min-height: 170px;
+            background-color: #313131;
+            border-radius: 15px;
+            background: #313131;
+            box-shadow: inset 5px 5px 3px #2f2f2f,
+                inset -5px -5px 3px #333333;
+        }
+
+        .card-body {
+            margin: 13px 0 0 10px;
+            color: rgb(184, 184, 184);
+            font-size: 15px;
+        }
+
+        .footer {
+            float: right;
+            margin: 28px 0 0 18px;
+            font-size: 13px;
+            color: #b3b3b3;
+        }
+
+        .by-name {
+            font-weight: 700;
+        }
+    </style>
+    <?php include "../CodeDee/footer.php" ?>
 </body>
 
 </html>

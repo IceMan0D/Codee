@@ -2,7 +2,7 @@
 $host = "localhost"; 
 $username = "root"; 
 $password = ""; 
-$database = "dd"; 
+$database = "dataset_code"; 
 $port = 3306; 
 
 try {

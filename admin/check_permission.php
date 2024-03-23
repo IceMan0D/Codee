@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if(!empty($_SESSION['sale_login'])){
+    if(empty($_SESSION['sale_login'])){
         header('location: ../saller/sale.php');
         exit;
     }else if(empty($_SESSION['sale_login']) && empty($_SESSION['admin_login'])){

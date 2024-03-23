@@ -1,7 +1,8 @@
 <?php 
     require_once '../conn.php';
 
-    session_start();
+   // session_start();
+   require_once '../admin/check_permission.php';
 
     //เดี๋ยวมาเปลี่ยนกลับ เป็นแอดมิน
     $status = $_SESSION['sale_login'];
@@ -21,9 +22,6 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="sale.php">หน้าแรก</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="product_show.php">สินค้าทั้งหมด</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="showsale.php">จัดการสินค้า</a>
