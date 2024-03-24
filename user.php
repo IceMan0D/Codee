@@ -50,6 +50,12 @@ if (isset($_SESSION['user_login'])) {
 }
 ?>
         <h3 class="mt-4">Welcome <?php echo $row['user_fullname']; ?></h3>
+        <br>
+        <?php if(!empty($row['profile'])): ?>
+        <img src="<?php echo $row['profile']; ?>" alt="profile" style="width: 150px;">
+        <?php endif; ?>
+        <br>
+        <br>
         <p>email: <?php echo $row['user_email']; ?></p>
         <p>address: <?php echo $row['user_address']; ?></p>
         <p>telephone: <?php echo $row['tel']; ?></p>
