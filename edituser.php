@@ -2,7 +2,6 @@
     session_start();
     require_once 'conn.php';
 
-    // เมื่อผู้ใช้เข้าสู่ระบบแล้ว
     if (isset($_POST['update'])) {
         $user_id = $_SESSION['user_login'];
         $user_fullname = $_POST['user_fullname'];
@@ -12,7 +11,6 @@
         $occupation = $_POST['occupation'];
         $detail = $_POST['detail'];
 
-        // เตรียมคำสั่ง SQL สำหรับการอัปเดตข้อมูล
         $sql = "UPDATE user 
                 SET user_fullname = :user_fullname, 
                     user_email = :user_email, 
@@ -22,10 +20,8 @@
                     detail = :detail 
                 WHERE user_id = :user_id";
 
-        // เตรียมและเริ่มการใช้งาน PDO
         $stmt = $conn->prepare($sql);
 
-        // ผูกค่า parameter
         $stmt->bindParam(':user_fullname', $user_fullname, PDO::PARAM_STR);
         $stmt->bindParam(':user_email', $user_email, PDO::PARAM_STR);
         $stmt->bindParam(':user_address', $user_address, PDO::PARAM_STR);
@@ -34,15 +30,36 @@
         $stmt->bindParam(':detail', $detail, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
-        // ประมวลผลคำสั่ง SQL
         $stmt->execute();
 
-        // ส่งกลับไปยังหน้าเดิมหลังจากอัปเดตข้อมูลเรียบร้อย
+        if(isset($_FILES['profile'])) {
+            $file_name = $_FILES['profile']['name'];
+            $file_tmp = $_FILES['profile']['tmp_name'];
+            $file_size = $_FILES['profile']['size'];
+            $file_error = $_FILES['profile']['error'];
+
+            if($file_error === 0) {
+                if($file_size <= 10485760) {
+                    $file_destination = 'images/profile/' . $file_name; 
+                    move_uploaded_file($file_tmp, $file_destination); 
+
+                    $sql_image = "UPDATE user SET profile = :profile WHERE user_id = :user_id";
+                    $stmt_image = $conn->prepare($sql_image);
+                    $stmt_image->bindParam(':profile', $file_destination, PDO::PARAM_STR);
+                    $stmt_image->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                    $stmt_image->execute();
+                } else {
+                    echo "File is too large.";
+                }
+            } else {
+                echo "There was an error uploading your file.";
+            }
+        }
+
         header("location: user.php");
-        exit; // ออกจากการทำงานทันทีหลังจาก redirect
+        exit; 
     }
 
-    // ดึงข้อมูลของผู้ใช้จากฐานข้อมูลเพื่อให้แสดงในฟอร์ม
     $user_id = $_SESSION['user_login'];
     $stmt = $conn->prepare("SELECT * FROM user WHERE user_id = :user_id");
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -61,7 +78,7 @@
 <body>
     <div class="container">
     <h2>Edit User Information</h2>
-    <form method="post" action="">
+    <form method="post" action="" enctype="multipart/form-data">
         <label for="user_fullname">Full Name:</label><br>
         <input type="text" id="user_fullname" name="user_fullname" value="<?php echo $row['user_fullname']; ?>" required><br>
         <label for="user_email">Email:</label><br>
@@ -73,8 +90,11 @@
         <label for="occupation">Occupation:</label><br>
         <input type="text" id="occupation" name="occupation" value="<?php echo $row['occupation']; ?>"><br>
         <label for="detail">Detail:</label><br>
-        <textarea id="detail" name="detail"><?php echo $row['detail']; ?></textarea><br><br>
-        <input type="submit" name="update" value="Update" class="btn btn-primary"> 
+        <textarea id="detail" name="detail"><?php echo $row['detail']; ?></textarea><br>
+        <label for="profile">Profile Picture:</label><br>
+        <input type="file" id="profile" name="profile"><br><br>
+        <input type="submit" name="update" value="Update" class="btn btn-primary">
+        <a href="user.php" class="btn btn-primary">Cancel</a>
     </form>
     </div>
 </body>
